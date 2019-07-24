@@ -1,8 +1,8 @@
 {
     "targets": [
         {
-            "target_name": "hello",
-            "sources": ["cpp/hello.cc"],
+            "target_name": "azure_kinect",
+            "sources": ["cpp/azure-kinect.cc"],
             "include_dirs": [
                 "<!@(node -p \"require('node-addon-api').include\")",
             ],

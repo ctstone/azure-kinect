@@ -1,4 +1,4 @@
-const custom = require('bindings')('hello');
+const azureKinect = require('bindings')('azure_kinect');
 
-console.log(custom.hello());
-console.log(custom.getInstalledCount());
+console.log(azureKinect.hello());
+console.log(azureKinect.getInstalledCount());
