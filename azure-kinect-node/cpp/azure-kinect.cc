@@ -13,6 +13,8 @@ Napi::Object AzureKinect::Init(Napi::Env env, Napi::Object exports)
       InstanceMethod("close", &AzureKinect::Close),
       InstanceMethod("getCalibration", &AzureKinect::GetCalibration),
       InstanceMethod("captureFrames", &AzureKinect::CaptureFrames),
+      InstanceMethod("startCameras", &AzureKinect::StartCameras),
+      InstanceMethod("stopCameras", &AzureKinect::StopCameras),
       InstanceMethod("startJumpAnalysis", &AzureKinect::StartJumpAnalysis)};
   Napi::Function func = DefineClass(env, "AzureKinect", members);
 
@@ -65,20 +67,32 @@ Napi::Value AzureKinect::CaptureFrames(const Napi::CallbackInfo &info)
 {
   int frameCount = info[0].As<Napi::Number>().Int32Value();
   Napi::Function cb = info[1].As<Napi::Function>();
-
-  k4a_device_configuration_t config = K4A_DEVICE_CONFIG_INIT_DISABLE_ALL;
-  config.color_format = K4A_IMAGE_FORMAT_COLOR_MJPG;
-  config.color_resolution = K4A_COLOR_RESOLUTION_2160P;
-  config.depth_mode = K4A_DEPTH_MODE_NFOV_UNBINNED;
-  config.camera_fps = K4A_FRAMES_PER_SECOND_30;
-
-  // start the cameras
-  // k4a_device_start_cameras(this->device, &config);
-
   FrameCapture *fc = new FrameCapture(cb, this->device, frameCount);
   fc->Execute();
 
   return Env().Undefined();
+}
+
+Napi::Value AzureKinect::StartCameras(const Napi::CallbackInfo &info)
+{
+  // TODO expose as parameter
+  k4a_device_configuration_t config = K4A_DEVICE_CONFIG_INIT_DISABLE_ALL;
+  config.color_format = K4A_IMAGE_FORMAT_COLOR_MJPG;
+  config.color_resolution = K4A_COLOR_RESOLUTION_2160P;
+  config.depth_mode =
+      // K4A_DEPTH_MODE_OFF
+      // K4A_DEPTH_MODE_NFOV_UNBINNED
+      K4A_DEPTH_MODE_PASSIVE_IR;
+  config.camera_fps = K4A_FRAMES_PER_SECOND_30;
+
+  k4a_result_t result = k4a_device_start_cameras(this->device, &config);
+  return Napi::Number::New(info.Env(), result);
+}
+
+Napi::Value AzureKinect::StopCameras(const Napi::CallbackInfo &info)
+{
+  k4a_device_stop_cameras(this->device);
+  return info.Env().Undefined();
 }
 
 Napi::Value AzureKinect::GetCalibration(const Napi::CallbackInfo &info)

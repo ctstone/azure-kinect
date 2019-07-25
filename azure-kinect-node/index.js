@@ -2,19 +2,29 @@ const { AzureKinect } = require('bindings')('azure_kinect');
 
 const DEVICE_ID = 0;
 
-const kinect = new AzureKinect(DEVICE_ID);
-kinect.open();
-// kinect.startJumpAnalysis((err, body) => {
-//   console.log(new Date(), body);
-// });
+const k = new AzureKinect(DEVICE_ID);
 
-kinect.captureFrames(100, (err, i) => {
+// console.log('open', k.open());
+// console.log('start', k.startCameras());
+// console.log('stop', k.stopCameras());
+// console.log('close', k.close());
+
+
+k.open();
+console.log(k.startCameras());
+k.captureFrames(100, (err, i) => {
   if (err) {
     throw err;
   }
   if (i === null) {
     console.log('DONE');
+    k.stopCameras();
+    k.close();
+  } else {
+    console.log('frame', i);
   }
-  console.log('frame', i);
-})
-kinect.close();
+});
+
+// process.on('exit', () => {
+//   kinect;
+// });
