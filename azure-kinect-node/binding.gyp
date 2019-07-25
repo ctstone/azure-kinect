@@ -26,7 +26,7 @@
                         "<(module_root_dir)/lib/win/k4arecord.lib",
                         "<(module_root_dir)/lib/win/k4abt.lib",
                     ],
-                     "copies": [
+                    "copies": [
                         {
                             "destination": "<(module_root_dir)/build/Release",
                             "files": [
@@ -34,8 +34,9 @@
                                 "<(module_root_dir)/lib/win/k4arecord.dll",
                                 "<(module_root_dir)/lib/win/k4abt.dll",
                                 "<(module_root_dir)/lib/win/depthengine_1_0.dll",
+                                "<(module_root_dir)/lib/win/onnxruntime.dll",
                             ]
-                        }   
+                        }
                     ],
                 }],
             ],

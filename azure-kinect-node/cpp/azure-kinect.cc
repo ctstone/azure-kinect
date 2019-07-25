@@ -40,25 +40,22 @@ Napi::Value AzureKinect::Open(const Napi::CallbackInfo &info)
 
 Napi::Value AzureKinect::StartJumpAnalysis(const Napi::CallbackInfo &info)
 {
-  // Napi::Function cb = info[1].As<Napi::Function>();
+  Napi::Function cb = info[0].As<Napi::Function>();
 
-  // k4a_device_configuration_t deviceConfig = K4A_DEVICE_CONFIG_INIT_DISABLE_ALL;
-  // deviceConfig.depth_mode = K4A_DEPTH_MODE_WFOV_2X2BINNED;
-  // deviceConfig.color_resolution = K4A_COLOR_RESOLUTION_OFF;
+  k4a_device_configuration_t deviceConfig = K4A_DEVICE_CONFIG_INIT_DISABLE_ALL;
+  deviceConfig.depth_mode = K4A_DEPTH_MODE_WFOV_2X2BINNED;
+  deviceConfig.color_resolution = K4A_COLOR_RESOLUTION_OFF;
 
-  // // start the cameras
-  // k4a_device_start_cameras(this->device, &deviceConfig);
+  // get calibration
+  k4a_calibration_t sensorCalibration;
+  k4a_device_get_calibration(device, deviceConfig.depth_mode, deviceConfig.color_resolution, &sensorCalibration);
 
-  // // get calibration
-  // k4a_calibration_t sensorCalibration;
-  // k4a_device_get_calibration(device, deviceConfig.depth_mode, deviceConfig.color_resolution, &sensorCalibration);
+  // tracker
+  k4abt_tracker_t tracker = NULL;
+  k4abt_tracker_create(&sensorCalibration, &tracker);
 
-  // // tracker
-  // k4abt_tracker_t tracker = NULL;
-  // k4abt_tracker_create(&sensorCalibration, &tracker);
-
-  // BodyTracker *worker = new BodyTracker(cb, this->device, tracker);
-  // worker->Execute();
+  BodyTracker *worker = new BodyTracker(cb, this->device, tracker);
+  worker->Execute();
 
   return Env().Undefined();
 }
@@ -76,14 +73,18 @@ Napi::Value AzureKinect::CaptureFrames(const Napi::CallbackInfo &info)
 Napi::Value AzureKinect::StartCameras(const Napi::CallbackInfo &info)
 {
   // TODO expose as parameter
+  // k4a_device_configuration_t config = K4A_DEVICE_CONFIG_INIT_DISABLE_ALL;
+  // config.color_format = K4A_IMAGE_FORMAT_COLOR_MJPG;
+  // config.color_resolution = K4A_COLOR_RESOLUTION_2160P;
+  // config.depth_mode =
+  //     // K4A_DEPTH_MODE_OFF
+  //     // K4A_DEPTH_MODE_NFOV_UNBINNED
+  //     K4A_DEPTH_MODE_PASSIVE_IR;
+  // config.camera_fps = K4A_FRAMES_PER_SECOND_30;
+
   k4a_device_configuration_t config = K4A_DEVICE_CONFIG_INIT_DISABLE_ALL;
-  config.color_format = K4A_IMAGE_FORMAT_COLOR_MJPG;
-  config.color_resolution = K4A_COLOR_RESOLUTION_2160P;
-  config.depth_mode =
-      // K4A_DEPTH_MODE_OFF
-      // K4A_DEPTH_MODE_NFOV_UNBINNED
-      K4A_DEPTH_MODE_PASSIVE_IR;
-  config.camera_fps = K4A_FRAMES_PER_SECOND_30;
+  config.depth_mode = K4A_DEPTH_MODE_WFOV_2X2BINNED;
+  config.color_resolution = K4A_COLOR_RESOLUTION_OFF;
 
   k4a_result_t result = k4a_device_start_cameras(this->device, &config);
   return Napi::Number::New(info.Env(), result);

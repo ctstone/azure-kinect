@@ -26,8 +26,9 @@ const { AzureKinect } = require('bindings')('azure_kinect');
 //   }
 // });
 
-// process.on('exit', () => {
-//   kinect;
+// k.startJumpAnalysis((err, x) => {
+//   console.log('JUMP', x);
 // });
+
 
 exports.AzureKinect = AzureKinect;

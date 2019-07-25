@@ -13,12 +13,16 @@
   "license": "MIT",
   "dependencies": {
     "@types/express": "^4.17.0",
+    "@types/watch": "^1.0.1",
     "@types/ws": "^6.0.1",
     "azure-kinect-node": "file:../azure-kinect-node",
     "express": "^4.17.1",
+    "fb-watchman": "^2.0.0",
+    "watch": "^1.0.2",
     "ws": "^7.1.1"
   },
   "devDependencies": {
+    "@types/fb-watchman": "^2.0.0",
     "dotenv": "^8.0.0",
     "tsc-watch": "^2.2.1",
     "tslint": "^5.18.0",
