@@ -6,6 +6,7 @@
                 "cpp/addon.cc",
                 "cpp/azure-kinect.cc",
                 "cpp/body-tracker.cc",
+                "cpp/frame-capture.cc",
             ],
             "include_dirs": [
                 "<!@(node -p \"require('node-addon-api').include\")",

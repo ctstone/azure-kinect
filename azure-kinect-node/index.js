@@ -7,4 +7,14 @@ kinect.open();
 // kinect.startJumpAnalysis((err, body) => {
 //   console.log(new Date(), body);
 // });
+
+kinect.captureFrames(100, (err, i) => {
+  if (err) {
+    throw err;
+  }
+  if (i === null) {
+    console.log('DONE');
+  }
+  console.log('frame', i);
+})
 kinect.close();
