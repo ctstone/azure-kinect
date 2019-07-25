@@ -14,6 +14,7 @@
   "dependencies": {
     "@types/express": "^4.17.0",
     "@types/ws": "^6.0.1",
+    "azure-kinect-node": "file:../azure-kinect-node",
     "express": "^4.17.1",
     "ws": "^7.1.1"
   },
