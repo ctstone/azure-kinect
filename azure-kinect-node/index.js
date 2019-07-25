@@ -1,4 +1,10 @@
-const azureKinect = require('bindings')('azure_kinect');
+const { AzureKinect } = require('bindings')('azure_kinect');
 
-console.log(azureKinect.hello());
-console.log(azureKinect.getInstalledCount());
+const DEVICE_ID = 0;
+
+const kinect = new AzureKinect(DEVICE_ID);
+kinect.open();
+// kinect.startJumpAnalysis((err, body) => {
+//   console.log(new Date(), body);
+// });
+kinect.close();

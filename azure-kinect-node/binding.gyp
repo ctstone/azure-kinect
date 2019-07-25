@@ -2,7 +2,11 @@
     "targets": [
         {
             "target_name": "azure_kinect",
-            "sources": ["cpp/azure-kinect.cc"],
+            "sources": [
+                "cpp/addon.cc",
+                "cpp/azure-kinect.cc",
+                "cpp/body-tracker.cc",
+            ],
             "include_dirs": [
                 "<!@(node -p \"require('node-addon-api').include\")",
             ],
@@ -13,11 +17,13 @@
             "conditions": [
                 ['OS=="win"', {
                     'include_dirs': [
-                        "<(module_root_dir)/include"
+                        "<(module_root_dir)/include",
+                        "<(module_root_dir)/include/k4a",
                     ],
                     "libraries": [
                         "<(module_root_dir)/lib/win/k4a.lib",
-                        "<(module_root_dir)/lib/win/k4arecord.lib"
+                        "<(module_root_dir)/lib/win/k4arecord.lib",
+                        "<(module_root_dir)/lib/win/k4abt.lib",
                     ],
                      "copies": [
                         {
@@ -25,6 +31,10 @@
                             "files": [
                                 "<(module_root_dir)/lib/win/k4a.dll",
                                 "<(module_root_dir)/lib/win/k4arecord.dll",
+                                "<(module_root_dir)/lib/win/k4abt.dll",
+                                "<(module_root_dir)/lib/win/onnxruntime.dll",
+                                "<(module_root_dir)/lib/win/depthengine_1_0.dll",
+                                "<(module_root_dir)/lib/dnn_model.onnx",
                             ]
                         }   
                     ],
