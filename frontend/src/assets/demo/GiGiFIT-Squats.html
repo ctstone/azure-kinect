@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GiGiFIT - Squats</title>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap-4.3.1.css" rel="stylesheet">
+  </head>
+  <body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <span class="navbar-toggler-icon"></span>
+  </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item"> <a class="nav-link" href="#">MyProfile</a> </li>
+          <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Workouts</a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="GiGiFIT-Squats.html">Squats</a>
+              <a class="dropdown-item" href="#">Planks</a>
+			  <a class="dropdown-item" href="#">Push-Ups</a>
+			  <a class="dropdown-item" href="#">Bridges</a>
+			  <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="GiGiFIT-ChooseWorkouts.html">See all workouts</a>
+            </div>
+			  <li class="nav-item"> <a class="nav-link" href="#">Activity Diary</a> </li>
+          </li>
+        </ul>
+	  <right><img src="Pictures/GiGiFIT.PNG" alt="" width="200"/></right>
+      </div>
+  </nav>
+<section>
+  <h1 class="text-center"><strong>Squats</strong></h1>
+	<center>
+	<table height="25" width="1800" border="3">
+	  <tbody>
+		<tr>
+		  <td width="600" valign="top">
+			<center>
+				<h2><strong><font color="orange">Virtual Coach</font></strong></h2>
+				<br>
+			  <button type="button" class="btn btn-primary" onclick="PlayVideo()">PLAY VIDEO</button>
+				<br>
+			  <video controls width="600" height="400" name="SQUATS" id="exerciseVid" src="Videos/Squats/video1.mp4"></video>
+				<br>
+				<br>
+				<br>
+				<br>
+				<div class="vidTxtBox">
+					<i><h2 id="cc01" style="font-size:35px;vertical-align:middle;">Use Visual Cues. Feet on the Dots.</h2></i>
+				</div>
+			</center>
+			</td>
+		  <td width="1000" valign="top">
+			  			  <center><h2><strong><font color="green">Analysis</font></strong></h2></center>
+			  <video controls width="1000" name="SQUATS" src="Videos/Real_Exercise_Videos/squat.mp4"></video>
+			  <br>
+			  <br>
+		    <center>
+				<button type="button" style="height:50px;width:75px" onclick="showStars('Pictures/Stars/stars-1.png')">1</button>
+				<button type="button" style="height:50px;width:75px" onclick="showStars('Pictures/Stars/stars-2.png')">2</button>
+				<button type="button" style="height:50px;width:75px" onclick="showStars('Pictures/Stars/stars-3.png')">3</button>
+				<button type="button" style="height:50px;width:75px" onclick="showStars('Pictures/Stars/stars-4.png')">4</button>
+				<button type="button" style="height:50px;width:75px" onclick="showStars('Pictures/Stars/stars-5.png')">5</button>
+				<button type="button" style="height:50px;width:75px" onclick="showStars('Pictures/Stars/stars-0.png')">Reset</button>
+			</center>
+			<br>
+			</td>
+			<td>
+		    	<center><img src="Pictures/Stars/stars-0.png" width="60%" alt="" id="starImg"/></center>
+			</td>
+		</tr>
+		<tr>
+			<td height="300" valign="top">
+				<center>
+					<h2><strong><font color="black">RECOMMENDATIONS:</font></strong></h2>
+				</center>
+			</td>
+			<td>
+			</td>
+			<td></td>
+		</tr>
+	  </tbody>
+	</table>
+	</center>		   
+   <div>
+<script type="text/javascript">
+		var myvid = document.getElementById('exerciseVid');
+		var myvids = [
+		  	"Videos/Squats/video1.mp4",
+			"Videos/Squats/video2.mp4", 
+			"Videos/Squats/video3.mp4", 
+			"Videos/Squats/video4.mp4", 
+			"Videos/Squats/video5.mp4"
+			];
+		var activeVideo = 0;
+		var element = document.getElementById("cc01");
+		var steps = [
+			"Use Visual Cues. Feet on the Dots.",
+			"Arms Out.",
+			"Eyes Up. Tall and Strong.",
+			"Squat down.",
+			"Up. Tall and Strong."
+			];
+			
+		myvid.addEventListener('ended', function(e) 
+			{
+				// update the active video index
+		  		activeVideo = (++activeVideo) % myvids.length;
+
+			  	// update the video source and play
+			  	wait(5000);
+				myvid.src = myvids[activeVideo];
+				myvid.play();
+				element.innerHTML = steps[activeVideo];
+			});
+</script>
+								 
+      </div>
+    </section>
+	<hr>
+    <footer class="text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <p>GiGi's Playhouse | Microsoft<br>
+			  2019 Hackathon<br>
+			  Copyright © 2019. All rights reserved.</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap-4.3.1.js"></script>
+	<script>
+		function PlayVideo() {
+		var popup = document.getElementById("exerciseVid");
+		popup.classList.toggle("show");
+
+		if (popup.paused){ 
+			popup.play(); 
+			}
+		  else{ 
+			popup.pause();
+			}
+
+		}
+		
+		function wait(ms)
+		{
+		var d = new Date();
+		var d2 = null;
+		do { d2 = new Date(); }
+		while(d2-d < ms);
+		}
+		
+		function showStars(a) 
+		{
+        	document.getElementById("starImg").src=a;
+    	}
+	</script>
+  </body>
+</html>
