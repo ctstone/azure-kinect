@@ -35,23 +35,23 @@ Napi::Value AzureKinect::Open(const Napi::CallbackInfo &info)
   return Napi::Number::New(info.Env(), result);
 }
 
-void AzureKinect::StartJumpAnalysis(const Napi::CallbackInfo &info)
-{
-  k4a_device_configuration_t deviceConfig = K4A_DEVICE_CONFIG_INIT_DISABLE_ALL;
-  deviceConfig.depth_mode = K4A_DEPTH_MODE_WFOV_2X2BINNED;
-  deviceConfig.color_resolution = K4A_COLOR_RESOLUTION_OFF;
+// void AzureKinect::StartJumpAnalysis(const Napi::CallbackInfo &info)
+// {
+//   k4a_device_configuration_t deviceConfig = K4A_DEVICE_CONFIG_INIT_DISABLE_ALL;
+//   deviceConfig.depth_mode = K4A_DEPTH_MODE_WFOV_2X2BINNED;
+//   deviceConfig.color_resolution = K4A_COLOR_RESOLUTION_OFF;
 
-  // start the cameras
-  k4a_device_start_cameras(this->device, &deviceConfig);
+//   // start the cameras
+//   k4a_device_start_cameras(this->device, &deviceConfig);
 
-  // get calibration
-  k4a_calibration_t sensorCalibration;
-  k4a_device_get_calibration(device, deviceConfig.depth_mode, deviceConfig.color_resolution, &sensorCalibration);
+//   // get calibration
+//   k4a_calibration_t sensorCalibration;
+//   k4a_device_get_calibration(device, deviceConfig.depth_mode, deviceConfig.color_resolution, &sensorCalibration);
 
-  // tracker
-  k4abt_tracker_t tracker = NULL;
-  k4abt_tracker_create(&sensorCalibration, &tracker);
-}
+//   // tracker
+//   k4abt_tracker_t tracker = NULL;
+//   k4abt_tracker_create(&sensorCalibration, &tracker);
+// }
 
 Napi::Value AzureKinect::GetCalibration(const Napi::CallbackInfo &info)
 {
