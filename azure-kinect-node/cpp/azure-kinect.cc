@@ -35,30 +35,23 @@ Napi::Value AzureKinect::Open(const Napi::CallbackInfo &info)
   return Napi::Number::New(info.Env(), result);
 }
 
-// Napi::Value AzureKinect::StartJumpAnalysis(const Napi::CallbackInfo &info)
-// {
-//   Napi::Function cb = info[1].As<Napi::Function>();
+void AzureKinect::StartJumpAnalysis(const Napi::CallbackInfo &info)
+{
+  k4a_device_configuration_t deviceConfig = K4A_DEVICE_CONFIG_INIT_DISABLE_ALL;
+  deviceConfig.depth_mode = K4A_DEPTH_MODE_WFOV_2X2BINNED;
+  deviceConfig.color_resolution = K4A_COLOR_RESOLUTION_OFF;
 
-//   k4a_device_configuration_t deviceConfig = K4A_DEVICE_CONFIG_INIT_DISABLE_ALL;
-//   deviceConfig.depth_mode = K4A_DEPTH_MODE_WFOV_2X2BINNED;
-//   deviceConfig.color_resolution = K4A_COLOR_RESOLUTION_OFF;
+  // start the cameras
+  k4a_device_start_cameras(this->device, &deviceConfig);
 
-//   // start the cameras
-//   k4a_device_start_cameras(this->device, &deviceConfig);
+  // get calibration
+  k4a_calibration_t sensorCalibration;
+  k4a_device_get_calibration(device, deviceConfig.depth_mode, deviceConfig.color_resolution, &sensorCalibration);
 
-//   // get calibration
-//   k4a_calibration_t sensorCalibration;
-//   k4a_device_get_calibration(device, deviceConfig.depth_mode, deviceConfig.color_resolution, &sensorCalibration);
-
-//   // tracker
-//   k4abt_tracker_t tracker = NULL;
-//   k4abt_tracker_create(&sensorCalibration, &tracker);
-
-//   BodyTracker *bt = new BodyTracker(cb, this->device, tracker);
-//   bt->Queue();
-
-//   return info.Env().Undefined();
-// }
+  // tracker
+  k4abt_tracker_t tracker = NULL;
+  k4abt_tracker_create(&sensorCalibration, &tracker);
+}
 
 Napi::Value AzureKinect::GetCalibration(const Napi::CallbackInfo &info)
 {
@@ -71,6 +64,7 @@ Napi::Value AzureKinect::GetCalibration(const Napi::CallbackInfo &info)
   k4a_calibration_t calibration;
   if (K4A_RESULT_SUCCEEDED == k4a_device_get_calibration(this->device, depth_mode, color_resolution, &calibration))
   {
+    // return Napi::Object::<k4a_calibration_t>(env, calibration);
     return Napi::Buffer<k4a_calibration_t>::New(env, &calibration, sizeof(calibration));
   }
   else

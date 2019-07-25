@@ -32,9 +32,6 @@
                                 "<(module_root_dir)/lib/win/k4a.dll",
                                 "<(module_root_dir)/lib/win/k4arecord.dll",
                                 "<(module_root_dir)/lib/win/k4abt.dll",
-                                "<(module_root_dir)/lib/win/onnxruntime.dll",
-                                "<(module_root_dir)/lib/win/depthengine_1_0.dll",
-                                "<(module_root_dir)/lib/dnn_model.onnx",
                             ]
                         }   
                     ],
