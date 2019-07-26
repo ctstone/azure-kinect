@@ -30,28 +30,10 @@ export class WorkoutsSquatComponent implements OnInit {
     });
 
     const video = document.getElementById('webcam-video') as HTMLVideoElement;
-    const canvas = document.getElementById('webcam-canvas') as HTMLCanvasElement;
-    const ctx = canvas.getContext('2d');
-
-    const drawCanvas = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.drawImage(video, 0, 0);
-      requestAnimationFrame(drawCanvas);
-    };
-
-    video.addEventListener('loadend', () => {
-      const {
-        videoWidth,
-        videoHeight } = video;
-      canvas.width = videoWidth;
-      canvas.height = videoHeight;
-      this.deviceReady = true;
-      drawCanvas();
-    });
-
     navigator.mediaDevices.getUserMedia({ video: true })
       .then((stream) => {
         video.srcObject = stream;
+        this.deviceReady = true;
       })
       .catch((err) => {
         console.error(err.message);

@@ -5,7 +5,8 @@
     <video #videoPlayer controls [src]="VIDEOS[0].path" style="width: 100%"></video>
 
     <div class="mt-2 text-center">
-      <button type="button" class="btn btn-link btn-sm" (click)="startVideo(i, videoPlayer)" [class.active]="videoIndex === i" *ngFor="let video of VIDEOS; let i = index">
+      <button type="button" class="btn btn-link btn-sm" (click)="startVideo(i, videoPlayer)"
+        [class.active]="videoIndex === i" *ngFor="let video of VIDEOS; let i = index">
         {{video.name}}
       </button>
     </div>
@@ -16,8 +17,7 @@
     <p class="alert alert-danger" *ngIf="errorMessage">
       {{errorMessage}}
     </p>
-    <video id="webcam-video" autoplay style="width: 100%; display: none;"></video>
-    <canvas id="webcam-canvas" [ngStyle]="{'display': deviceReady ? '' : 'none'}"></canvas>
+    <video id="webcam-video" autoplay style="width: 100%;" [ngStyle]="{'display': deviceReady ? '' : 'none'}"></video>
     <p *ngIf="results" class="results d-flex justify-content-around">
       <ng-container *ngFor="let round of results">
         <span class="star delay-{{i}}" *ngFor="let star of round; let i = index;">⭐</span>
