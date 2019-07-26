@@ -1,0 +1,31 @@
+button.active {
+  background: #eee;
+}
+
+@keyframes example {
+  from {
+    // font-size: 10px;
+  }
+  to {
+    font-size: 50px;
+  }
+}
+
+.star {
+  animation-name: example;
+  animation-duration: .5s;
+  animation-timing-function: ease-in;
+  animation-fill-mode: forwards;
+}
+.delay-1 {
+  animation-delay: .1s;
+}
+.delay-2 {
+  animation-delay: .2s;
+}
+.delay-3 {
+  animation-delay: .3s;
+}
+.delay-4 {
+  animation-delay: .4s;
+}

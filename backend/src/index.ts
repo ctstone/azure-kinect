@@ -34,6 +34,8 @@ new WebSocket.Server({ server })
       });
     });
 
+    socket.send('[5,0,0,0,0]');
+
     socket.on('message', (message) => {
       console.log('client said', message);
     });

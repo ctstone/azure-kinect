@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-sm-5">
+    <h3>Step 1. Your Virtual Coach</h3>
+    <p class="lead">Before you begin, watch the following instructional videos</p>
+    <video #videoPlayer controls [src]="VIDEOS[0].path" style="width: 100%"></video>
+
+    <div class="mt-2 text-center">
+      <button type="button" class="btn btn-link btn-sm" (click)="startVideo(i, videoPlayer)" [class.active]="videoIndex === i" *ngFor="let video of VIDEOS; let i = index">
+        {{video.name}}
+      </button>
+    </div>
+  </div>
+
+  <div class="col-sm-7">
+    <h3>Step 2. Start Your Workout!</h3>
+    <p class="alert alert-danger" *ngIf="errorMessage">
+      {{errorMessage}}
+    </p>
+    <video id="webcam-video" autoplay style="width: 100%; display: none;"></video>
+    <canvas id="webcam-canvas" [ngStyle]="{'display': deviceReady ? '' : 'none'}"></canvas>
+    <p *ngIf="results" class="results d-flex justify-content-around">
+      <ng-container *ngFor="let round of results">
+        <span class="star delay-{{i}}" *ngFor="let star of round; let i = index;">⭐</span>
+      </ng-container>
+    </p>
+  </div>
+</div>
